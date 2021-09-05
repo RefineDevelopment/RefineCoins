@@ -1,0 +1,17 @@
+############################################
+#              Coins made by               #
+#              damt & refine               #
+############################################
+
+COINS:
+  SET: "&aYou have set the coins of <player> to <coins>"
+  GAVE: "&aYou have given <player> <coins> coins!"
+  GIVEN: "&aThe player <player> has given you <coins> coins!"
+  TAKE: "&aYou have took <coins> coins from <player>!"
+
+OTHER:
+  BALANCE: "&aYou currently have <coins> coins!"
+
+ERROR:
+  NOT-ENOUGH-COINS: "&cYou do not have enough coins to do this action!"
+  MAY-NOT-SEND-TO-SELF: "&cYou may not use this command on yourself!"

@@ -1,0 +1,6 @@
+main: xyz.refinedev.coins.RefineCoins
+description: Refine Coins
+version: 1.0
+authors: [damt, Refine Development]
+name: RefineCoins
+softdepend: [PlaceholderAPI]
