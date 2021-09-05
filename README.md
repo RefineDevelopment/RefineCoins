@@ -3,9 +3,9 @@
 
   ## Refine Coins
 
-
 A simple mongo based economy and coins plugin.
 </div>
+
 # Developed By
 Refine Development
 
