@@ -1,2 +1,2 @@
 # RefineCoins
-A simple mongo based economy and coins plugin.
+A simple mongo/flat file based economy and coins plugin.
