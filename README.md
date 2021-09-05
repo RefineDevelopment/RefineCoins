@@ -2,10 +2,10 @@
 <div align="center">
 
   ## Refine Coins
-</div>
+
 
 A simple mongo based economy and coins plugin.
-
+</div>
 # Developed By
 Refine Development
 
