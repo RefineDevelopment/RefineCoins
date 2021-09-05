@@ -10,7 +10,7 @@ A simple mongo based economy and coins plugin.
 Refine Development
 
 # Contact
-> [Discord] (https://dsc.gg/refine)
-> refinedevelopment@gmail.com
-> [Twitter] (https://twitter.com/RefineDev)
+- [Discord] (https://dsc.gg/refine)
+- refinedevelopment@gmail.com
+- [Twitter] (https://twitter.com/RefineDev)
 
