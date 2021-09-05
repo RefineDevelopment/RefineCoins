@@ -7,15 +7,15 @@ import xyz.refinedev.coins.profile.Profile;
 import java.util.Optional;
 import java.util.UUID;
 
-public class RadonCoinsAPI implements CoinsAPI {
+public class RefineCoinsAPI implements CoinsAPI {
 
-    public static RadonCoinsAPI INSTANCE;
+    public static RefineCoinsAPI INSTANCE;
 
     /**
      * Sets the instance of the plugin
      */
 
-    public RadonCoinsAPI() {
+    public RefineCoinsAPI() {
         INSTANCE = this;
     }
 
