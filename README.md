@@ -1,6 +1,6 @@
 <div align="center">
 
-  [<img src="https://i.imgur.com/MZ1nvAC.png" style="width:256px;height:256px"></img>](https://en.wikipedia.org/wiki/Loki_(TV_series))
+  [<img src="https://i.imgur.com/MZ1nvAC.png" style="width:128px;height:128px"></img>](https://discord.gg/refine))
   ## Coins
 
 </small></i>
