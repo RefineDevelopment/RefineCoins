@@ -1,6 +1,6 @@
 <div align="center">
 
-  [<img src="https://i.imgur.com/MZ1nvAC.png" style="width:128px;height:128px"></img>](https://discord.gg/refine))
+  [<img src="https://i.imgur.com/MZ1nvAC.png" style="width:128px;height:128px"></img>](https://discord.gg/refine)
   ## Coins
 
 </small></i>
