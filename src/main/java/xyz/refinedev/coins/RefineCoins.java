@@ -3,12 +3,14 @@ package xyz.refinedev.coins;
 import com.jonahseguin.drink.CommandService;
 import com.jonahseguin.drink.Drink;
 import lombok.Getter;
+import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.plugin.java.JavaPlugin;
 import xyz.refinedev.coins.commands.BalanceCommand;
 import xyz.refinedev.coins.commands.CoinsCommand;
 import xyz.refinedev.coins.commands.PayCommand;
 import xyz.refinedev.coins.commands.provider.OfflinePlayerCommandProvider;
+import xyz.refinedev.coins.mongo.MongoHandler;
 import xyz.refinedev.coins.placeholder.CoinsPlaceholderExtension;
 import xyz.refinedev.coins.profile.ProfileHandler;
 import xyz.refinedev.coins.profile.ProfileStorage;
@@ -27,6 +29,7 @@ public class RefineCoins extends JavaPlugin {
 
     private BasicConfigurationFile profilesYML;
     private BasicConfigurationFile messagesYML;
+    private BasicConfigurationFile configYML;
 
     /**
      * Loading logic of the plugin
@@ -36,7 +39,7 @@ public class RefineCoins extends JavaPlugin {
     public void onLoad() {
         instance = this;
 
-        this.saveDefaultConfig();
+        this.configYML = new BasicConfigurationFile(this, "config");
         this.profilesYML = new BasicConfigurationFile(this, "profiles");
         this.messagesYML = new BasicConfigurationFile(this, "messages");
     }
@@ -55,7 +58,7 @@ public class RefineCoins extends JavaPlugin {
             profileStorage = new MongoProfileStorage(this);
         }
 
-        if (getConfig().getBoolean("SETTINGS.PLACEHOLDERAPI")) {
+        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             new CoinsPlaceholderExtension(this).register();
         }
 

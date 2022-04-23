@@ -22,8 +22,9 @@ public class BasicConfigurationFile extends AbstractConfigurationFile {
         super(plugin, name);
 
         this.file = new File(plugin.getDataFolder(), name + ".yml");
-        plugin.saveResource(name + ".yml", overwrite);
-
+        if (!file.exists()) {
+            plugin.saveResource(name + ".yml", overwrite);
+        }
         this.configuration = YamlConfiguration.loadConfiguration(this.file);
     }
 

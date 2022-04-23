@@ -1,66 +1,92 @@
 package xyz.refinedev.coins.mongo;
 
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientURI;
-import com.mongodb.MongoCredential;
-import com.mongodb.ServerAddress;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import lombok.Getter;
 import org.bson.Document;
-import org.bukkit.configuration.file.FileConfiguration;
 import xyz.refinedev.coins.RefineCoins;
+import xyz.refinedev.coins.utils.config.BasicConfigurationFile;
 
-import java.util.Collections;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/**
+ * This Project is property of Refine Development Â© 2021
+ * Redistribution of this Project is not allowed
+ *
+ * @author Drizzy
+ * Created: 9/12/2021
+ * Project: Array
+ */
 
 @Getter
 public class MongoHandler {
 
-    private final RefineCoins refineCoins;
+    private final RefineCoins plugin;
+    private final BasicConfigurationFile config;
 
-    private MongoDatabase mongoDatabase;
+    private MongoClient client;
+    private MongoDatabase database;
+
     private MongoCollection<Document> profiles;
 
-    /**
-     * Constructs a new instance of {@link MongoHandler}
-     *
-     * @param refineCoins instance of {@link RefineCoins}
-     */
-
-    public MongoHandler(RefineCoins refineCoins) {
-        this.refineCoins = refineCoins;
-        this.connect();
+    public MongoHandler(RefineCoins plugin, BasicConfigurationFile config) {
+        this.plugin = plugin;
+        this.config = config;
+        init();
     }
 
-    /**
-     * Connect logic of the mongo database
-     */
+    public void init() {
+        this.disableLogging();
 
-    private void connect() {
-        FileConfiguration mainConfig = refineCoins.getConfig();
+        if (config.getBoolean("MONGO.URI-MODE")) {
+            this.client = MongoClients.create(config.getString("MONGO.URI.CONNECTION_STRING"));
+            this.database = client.getDatabase(config.getString("MONGO.URI.DATABASE"));
 
-        if (mainConfig.getBoolean("STORAGE.MONGO.URI-MODE")) {
-            MongoClient client = new MongoClient(new MongoClientURI(mainConfig.getString("STORAGE.MONGO.URI.CONNECTION_STRING")));
-            this.mongoDatabase = client.getDatabase(mainConfig.getString("STORAGE.MONGO.URI.DATABASE"));
-        } else {
-            MongoClient client;
-            if (mainConfig.getBoolean("STORAGE.MONGO.NORMAL.AUTHENTICATION.ENABLED")) {
-                MongoCredential credential = MongoCredential.createCredential(
-                        mainConfig.getString("STORSTORAGE.MONGO.NORMAL.AUTHENTICATION.USERNAME"),
-                        mainConfig.getString("STORAGE.MONGO.NORMAL.DATABASE"),
-                        mainConfig.getString("STORAGE.MONGO.NORMAL.AUTHENTICATION.PASSWORD").toCharArray()
-                );
-
-                client = new MongoClient(new ServerAddress(mainConfig.getString("STORAGE.MONGO.NORMAL.HOST"),
-                        mainConfig.getInt("STORAGE.MONGO.NORMAL.PORT")), Collections.singletonList(credential));
-            } else {
-                client = new MongoClient(mainConfig.getString("STORAGE.MONGO.NORMAL.HOST"),
-                        mainConfig.getInt("STORAGE.MONGO.NORMAL.PORT"));
-            }
-            this.mongoDatabase = client.getDatabase(mainConfig.getString("STORAGE.MONGO.NORMAL.DATABASE"));
+            plugin.getLogger().info("&7Initialized MongoDB successfully!");
+            return;
         }
 
-        profiles = mongoDatabase.getCollection("profiles");
+        boolean auth = config.getBoolean("MONGO.NORMAL.AUTHENTICATION.ENABLED");
+        String host = config.getString("MONGO.NORMAL.HOST");
+        int port = config.getInteger("MONGO.NORMAL.PORT");
+
+        String uri = "mongodb://" + host + ":" + port;
+
+        if (auth) {
+            String username = config.getString("MONGO.NORMAL.AUTHENTICATION.USERNAME");
+            String password = config.getString("MONGO.NORMAL.AUTHENTICATION.PASSWORD");
+            uri = "mongodb://" + username + ":" + password + "@" + host + ":" + port;
+        }
+
+
+        this.client = MongoClients.create(uri);
+        this.database = client.getDatabase(config.getString("MONGO.URI.DATABASE"));
+
+        this.profiles = this.database.getCollection("profiles");
+
+        plugin.getLogger().info("&7Initialized MongoDB successfully!");
     }
 
+    public void shutdown() {
+        plugin.getLogger().info("&7Disconnecting &cMongo&7...");
+        try {
+            Thread.sleep(50L);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+
+        if (this.client != null) this.client.close();
+        plugin.getLogger().info("&7Disconnected &cMongo &7Successfully!");
+    }
+
+    public void disableLogging() {
+        Logger mongoLogger = Logger.getLogger( "com.mongodb" );
+        mongoLogger.setLevel(Level.SEVERE);
+
+        Logger legacyLogger = Logger.getLogger( "org.mongodb" );
+        legacyLogger.setLevel(Level.SEVERE);
+    }
 }

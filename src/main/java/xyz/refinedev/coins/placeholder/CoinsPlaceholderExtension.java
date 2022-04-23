@@ -29,7 +29,7 @@ public class CoinsPlaceholderExtension extends PlaceholderExpansion {
 
     @Override
     public String getIdentifier() {
-        return "coins";
+        return "RefineCoins";
     }
 
     /**
@@ -40,7 +40,7 @@ public class CoinsPlaceholderExtension extends PlaceholderExpansion {
 
     @Override
     public String getAuthor() {
-        return "refine";
+        return "Refine Development";
     }
 
     /**

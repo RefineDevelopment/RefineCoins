@@ -2,6 +2,7 @@ package xyz.refinedev.coins.profile.impl;
 
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.ReplaceOptions;
+import lombok.Getter;
 import org.bson.Document;
 import xyz.refinedev.coins.RefineCoins;
 import xyz.refinedev.coins.mongo.MongoHandler;
@@ -11,6 +12,7 @@ import xyz.refinedev.coins.profile.ProfileStorage;
 public class MongoProfileStorage implements ProfileStorage {
 
     private final RefineCoins refineCoins;
+    @Getter
     private final MongoHandler mongoHandler;
 
     /**
@@ -21,7 +23,7 @@ public class MongoProfileStorage implements ProfileStorage {
 
     public MongoProfileStorage(RefineCoins refineCoins) {
         this.refineCoins = refineCoins;
-        this.mongoHandler = new MongoHandler(refineCoins);
+        this.mongoHandler = new MongoHandler(refineCoins, refineCoins.getConfigYML());
     }
 
     /**

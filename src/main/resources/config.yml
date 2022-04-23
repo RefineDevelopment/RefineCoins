@@ -1,11 +1,10 @@
 ############################################
-#              Coins made by               #
-#              damt & refine               #
+#            RefineCoins made by           #
+#              damt @ refine               #
 ############################################
 
 SETTINGS:
   ENABLE-PAY: true
-  PLACEHOLDERAPI: true
 
 STORAGE:
   MONGO-STORAGE: false
