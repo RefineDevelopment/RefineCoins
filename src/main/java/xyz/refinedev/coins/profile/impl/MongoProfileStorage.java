@@ -12,8 +12,7 @@ import xyz.refinedev.coins.profile.ProfileStorage;
 public class MongoProfileStorage implements ProfileStorage {
 
     private final RefineCoins refineCoins;
-    @Getter
-    private final MongoHandler mongoHandler;
+    @Getter private final MongoHandler mongoHandler;
 
     /**
      * Mongo profile storage system manager

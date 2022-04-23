@@ -6,6 +6,8 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import lombok.Getter;
 import org.bson.Document;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import xyz.refinedev.coins.RefineCoins;
 import xyz.refinedev.coins.utils.config.BasicConfigurationFile;
 
@@ -25,21 +27,20 @@ import java.util.logging.Logger;
 public class MongoHandler {
 
     private final RefineCoins plugin;
-    private final BasicConfigurationFile config;
 
     private MongoClient client;
     private MongoDatabase database;
 
     private MongoCollection<Document> profiles;
 
-    public MongoHandler(RefineCoins plugin, BasicConfigurationFile config) {
+    public MongoHandler(RefineCoins plugin) {
         this.plugin = plugin;
-        this.config = config;
         init();
     }
 
     public void init() {
         this.disableLogging();
+        FileConfiguration config = plugin.getConfig();
 
         if (config.getBoolean("MONGO.URI-MODE")) {
             this.client = MongoClients.create(config.getString("MONGO.URI.CONNECTION_STRING"));
@@ -51,7 +52,7 @@ public class MongoHandler {
 
         boolean auth = config.getBoolean("MONGO.NORMAL.AUTHENTICATION.ENABLED");
         String host = config.getString("MONGO.NORMAL.HOST");
-        int port = config.getInteger("MONGO.NORMAL.PORT");
+        int port = config.getInt("MONGO.NORMAL.PORT");
 
         String uri = "mongodb://" + host + ":" + port;
 

@@ -10,7 +10,6 @@ import xyz.refinedev.coins.commands.BalanceCommand;
 import xyz.refinedev.coins.commands.CoinsCommand;
 import xyz.refinedev.coins.commands.PayCommand;
 import xyz.refinedev.coins.commands.provider.OfflinePlayerCommandProvider;
-import xyz.refinedev.coins.mongo.MongoHandler;
 import xyz.refinedev.coins.placeholder.CoinsPlaceholderExtension;
 import xyz.refinedev.coins.profile.ProfileHandler;
 import xyz.refinedev.coins.profile.ProfileStorage;
@@ -39,7 +38,8 @@ public class RefineCoins extends JavaPlugin {
     public void onLoad() {
         instance = this;
 
-        this.configYML = new BasicConfigurationFile(this, "config");
+        getConfig().options().copyDefaults();
+        this.saveDefaultConfig();
         this.profilesYML = new BasicConfigurationFile(this, "profiles");
         this.messagesYML = new BasicConfigurationFile(this, "messages");
     }
@@ -80,6 +80,10 @@ public class RefineCoins extends JavaPlugin {
     @Override
     public void onDisable() {
         profileHandler.getProfileMap().values().forEach(profile -> profileStorage.save(profile, false));
+
+        if (getConfig().getBoolean("STORAGE.MONGO-STORAGE")) {
+            ((MongoProfileStorage) profileStorage).getMongoHandler().shutdown();
+        }
     }
 
 }

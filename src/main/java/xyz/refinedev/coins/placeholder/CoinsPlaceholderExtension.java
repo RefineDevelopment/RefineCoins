@@ -2,6 +2,7 @@ package xyz.refinedev.coins.placeholder;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 import xyz.refinedev.coins.RefineCoins;
 import xyz.refinedev.coins.profile.Profile;
 
@@ -29,7 +30,7 @@ public class CoinsPlaceholderExtension extends PlaceholderExpansion {
 
     @Override
     public String getIdentifier() {
-        return "RefineCoins";
+        return "coins";
     }
 
     /**
@@ -51,7 +52,7 @@ public class CoinsPlaceholderExtension extends PlaceholderExpansion {
 
     @Override
     public String getVersion() {
-        return "1.0";
+        return refineCoins.getDescription().getVersion();
     }
 
     /**
@@ -75,7 +76,7 @@ public class CoinsPlaceholderExtension extends PlaceholderExpansion {
      */
 
     @Override
-    public String onPlaceholderRequest(Player p, String params) {
+    public String onPlaceholderRequest(Player p, @NotNull String params) {
         final Optional<Profile> profile = refineCoins.getProfileHandler().getProfile(p.getUniqueId());
 
         if (!profile.isPresent())
