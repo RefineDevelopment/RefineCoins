@@ -14,6 +14,7 @@
 ## The Team
 + [damt](https://github.com/therealdamt) | Lead Developer
 + [Refine Development](https://github.com/RefineDevelopment) | Lead Developer
++ [Infinity] | Developer
 + [Steamworks](https://github.com/steamworksmc) | Contributor
 
 ## Contact
