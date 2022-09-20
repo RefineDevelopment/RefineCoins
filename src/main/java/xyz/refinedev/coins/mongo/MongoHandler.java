@@ -41,29 +41,29 @@ public class MongoHandler {
     public void init() {
         this.disableLogging();
 
-        if (config.getBoolean("MONGO.URI-MODE")) {
-            this.client = MongoClients.create(config.getString("MONGO.URI.CONNECTION_STRING"));
-            this.database = client.getDatabase(config.getString("MONGO.URI.DATABASE"));
+        if (config.getBoolean("STORAGE.MONGO.URI-MODE")) {
+            this.client = MongoClients.create(config.getString("STORAGE.MONGO.URI.CONNECTION_STRING"));
+            this.database = client.getDatabase(config.getString("STORAGE.MONGO.URI.DATABASE"));
 
             plugin.getLogger().info("&7Initialized MongoDB successfully!");
             return;
         }
 
-        boolean auth = config.getBoolean("MONGO.NORMAL.AUTHENTICATION.ENABLED");
-        String host = config.getString("MONGO.NORMAL.HOST");
-        int port = config.getInteger("MONGO.NORMAL.PORT");
+        boolean auth = config.getBoolean("STORAGE.MONGO.NORMAL.AUTHENTICATION.ENABLED");
+        String host = config.getString("STORAGE.MONGO.NORMAL.HOST");
+        int port = config.getInteger("STORAGE.MONGO.NORMAL.PORT");
 
         String uri = "mongodb://" + host + ":" + port;
 
         if (auth) {
-            String username = config.getString("MONGO.NORMAL.AUTHENTICATION.USERNAME");
-            String password = config.getString("MONGO.NORMAL.AUTHENTICATION.PASSWORD");
+            String username = config.getString("STORAGE.MONGO.NORMAL.AUTHENTICATION.USERNAME");
+            String password = config.getString("STORAGE.MONGO.NORMAL.AUTHENTICATION.PASSWORD");
             uri = "mongodb://" + username + ":" + password + "@" + host + ":" + port;
         }
 
 
         this.client = MongoClients.create(uri);
-        this.database = client.getDatabase(config.getString("MONGO.URI.DATABASE"));
+        this.database = client.getDatabase(config.getString("STORAGE.MONGO.URI.DATABASE"));
 
         this.profiles = this.database.getCollection("profiles");
 
