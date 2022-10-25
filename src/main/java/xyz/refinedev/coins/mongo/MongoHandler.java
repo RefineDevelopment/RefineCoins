@@ -45,6 +45,7 @@ public class MongoHandler {
             this.client = MongoClients.create(config.getString("STORAGE.MONGO.URI.CONNECTION_STRING"));
             this.database = client.getDatabase(config.getString("STORAGE.MONGO.URI.DATABASE"));
 
+            this.profiles = this.database.getCollection("profiles");
             plugin.getLogger().info("&7Initialized MongoDB successfully!");
             return;
         }
