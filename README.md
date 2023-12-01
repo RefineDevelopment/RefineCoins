@@ -9,12 +9,12 @@
 
 </div>
 
-**Coins** is an easy to use economy system that can be used with MongoDB or Flat-File
+**Coins** is a simple, easy to use, economy system that can be used with MongoDB or Flat-File
 
 ## The Team
 + [damt](https://github.com/therealdamt) | Lead Developer
 + [Refine Development](https://github.com/RefineDevelopment) | Lead Developer
-+ [Infinity] | Developer
++ [Infinity](https://github.com/Ixf1nity) | Developer
 + [Steamworks](https://github.com/steamworksmc) | Contributor
 
 ## Contact
